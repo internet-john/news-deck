@@ -1,14 +1,16 @@
-import React from "react";
+import React from 'react';
 
-import Header from "./header";
-import Body from "./body";
-import Footer from "./footer";
+import Header from './header';
+import ArticlesList from './articles/articlesList';
+import Footer from './footer';
+
+import '../styles/newsDeckApp.css';
 
 const NewsDeckApp = () => {
   return (
-    <div>
+    <div className="newsDeckApp">
       <Header />
-      <Body />
+      <ArticlesList />
       <Footer />
     </div>
   );

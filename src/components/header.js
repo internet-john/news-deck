@@ -1,11 +1,13 @@
-import React from "react";
+import React from 'react';
+
+import '../styles/header.css';
 
 const Header = () => {
   return (
-    <React.Fragment>
+    <div className="newsDeckApp__header">
       <h1>news-deck</h1>
       <h3>{new Date().toDateString()}</h3>
-    </React.Fragment>
+    </div>
   );
 };
 

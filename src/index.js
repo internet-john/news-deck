@@ -1,17 +1,32 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import ErrorBoundary from "react-error-boundary";
-import { createStore } from "redux";
-import { Provider } from "react-redux";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { createStore, compose, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import ErrorBoundary from 'react-error-boundary';
+import thunk from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-import rootStore from "./reducers/root";
-import NewsDeckApp from "./components/newsDeckApp";
+import { fetchArticles } from './actions';
+import rootReducer from './reducers/index';
+import * as actionCreators from './actions/index';
+import NewsDeckApp from './components/newsDeckApp';
 
-const store = createStore(rootStore);
+const composeEnhancers = composeWithDevTools({
+  actionCreators,
+  trace: true,
+  traceLimit: 25,
+});
+
+const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(thunk))
+);
+
+store.dispatch(fetchArticles());
 
 ReactDOM.render(
   <Provider store={store}>
     <ErrorBoundary>{NewsDeckApp}</ErrorBoundary>
   </Provider>,
-  document.getElementById("root")
+  document.getElementById('root')
 );

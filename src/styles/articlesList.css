@@ -1,0 +1,4 @@
+.newsDeckApp__articles-list {
+  display: grid;
+  grid-template-columns: 75% 5% 20%;
+}

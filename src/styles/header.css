@@ -1,0 +1,11 @@
+.newsDeckApp__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+@media screen and (max-width: 520px) {
+  .newsDeckApp__header {
+    display: initial;
+  }
+}
