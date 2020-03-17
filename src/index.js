@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, compose, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import ErrorBoundary from 'react-error-boundary';
 import thunk from 'redux-thunk';
@@ -21,8 +21,8 @@ const store = createStore(
   rootReducer,
   composeEnhancers(applyMiddleware(thunk))
 );
-
-store.dispatch(fetchArticles());
+// TODO: save last filter in local storage or other alternative than hardcoding US
+store.dispatch(fetchArticles('us'));
 
 ReactDOM.render(
   <Provider store={store}>
