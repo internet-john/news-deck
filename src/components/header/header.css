@@ -2,10 +2,12 @@
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+  font-size: 1.5em;
 }
 
 @media screen and (max-width: 520px) {
   .newsDeckApp__header {
     display: initial;
+    line-height: 0.25;
   }
 }

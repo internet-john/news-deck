@@ -8,3 +8,4 @@ npm-debug.log*
 .npm
 dist/
 .cache/
+.DS_Store

@@ -3,20 +3,32 @@ import {
   REQUEST_ARTICLES_SUCCESS,
   REQUEST_ARTICLES_FAILURE,
   DISPLAY_ARTICLES,
+  REMOVE_ARTICLES,
+  APPLY_COUNTRY_FILTER,
+  APPLY_CATEGORY_FILTER,
 } from '../actions';
 
 const initialState = {
   articles: [],
-  isFetching: true,
+  isFetching: false,
   articlesFetched: false,
   articlesDisplayed: false,
+  countryFilter: 'us',
+  categoryFilter: 'general',
 };
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case REQUEST_ARTICLES:
-      return state;
+      return Object.assign({}, state, {
+        isFetching: true,
+      });
     case REQUEST_ARTICLES_SUCCESS:
+      return Object.assign({}, state, {
+        isFetching: !state.isFetching,
+        articlesFetched: !state.articlesFetched,
+      });
+    case REQUEST_ARTICLES_FAILURE:
       return Object.assign({}, state, {
         isFetching: !state.isFetching,
         articlesFetched: !state.articlesFetched,
@@ -30,13 +42,17 @@ const rootReducer = (state = initialState, action) => {
           description: article.description,
           author: article.author,
           source: article.source.name || '',
+          url: article.url,
         })),
       });
-    case REQUEST_ARTICLES_FAILURE:
+    case REMOVE_ARTICLES:
       return Object.assign({}, state, {
-        isFetching: !state.isFetching,
-        articlesFetched: !state.articlesFetched,
+        articles: [],
       });
+    case APPLY_COUNTRY_FILTER:
+      return Object.assign({}, state, { countryFilter: action.filter });
+    case APPLY_CATEGORY_FILTER:
+      return Object.assign({}, state, { categoryFilter: action.filter });
     default:
       return state;
   }

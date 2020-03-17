@@ -1,0 +1,20 @@
+.newsDeck__filterBar {
+  display: flex;
+  justify-content: space-evenly;
+  list-style: none;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+  padding: 0;
+}
+
+.newsDeck__filterBar-item:hover,
+.newsDeck__filterBar-item--selected {
+  cursor: pointer;
+  font-size: 1.1em;
+  font-weight: 800;
+  text-decoration: underline;
+}
+
+.newsDeck__filterBar-item--selected {
+  font-size: 1.2em;
+}
