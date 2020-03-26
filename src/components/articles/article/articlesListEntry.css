@@ -1,7 +1,14 @@
 .newsDeckApp__articles-list-entry,
 .newsDeckApp__articles-list-entry--featured {
-  padding: 4% 0;
   border-bottom: 1px solid black;
+}
+
+.newsDeckApp__articles-list-entry--featured {
+  padding: 4% 0;
+}
+
+.newsDeckApp__articles-list-entry {
+  padding: 4% 10% 4% 4%;
 }
 
 .newsDeckApp__articles-list-entry-source,
@@ -9,8 +16,13 @@
   padding-bottom: 2%;
 }
 
+.newsDeckApp__articles-list-entry-title,
 .newsDeckApp__articles-list-entry--featured-title {
-  font-size: 3em;
+  line-height: 0.9;
+}
+
+.newsDeckApp__articles-list-entry--featured-title {
+  font-size: 2em;
   font-weight: 800;
 }
 

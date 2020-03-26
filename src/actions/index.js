@@ -3,7 +3,10 @@ const REQUEST_ARTICLES_SUCCESS = 'REQUEST_ARTICLES_SUCCESS';
 const REQUEST_ARTICLES_FAILURE = 'REQUEST_ARTICLES_FAILURE';
 const DISPLAY_ARTICLES = 'DISPLAY_ARTICLES';
 const REMOVE_ARTICLES = 'REMOVE_ARTICLES';
-const APPLY_FILTER = 'APPLY_FILTER';
+const APPLY_COUNTRY_FILTER = 'APPLY_COUNTRY_FILTER';
+const APPLY_CATEGORY_FILTER = 'APPLY_CATEGORY_FILTER';
+
+import { COUNTRIES, CATEGORIES } from '../constants';
 
 const requestArticles = () => ({
   type: REQUEST_ARTICLES,
@@ -28,23 +31,29 @@ const removeArticles = () => ({
 });
 
 const setFilter = filter => ({
-  type: APPLY_FILTER,
+  type: `APPLY_${isCountry(filter) ? 'COUNTRY' : 'CATEGORY'}_FILTER`,
   filter,
 });
 
+const isCountry = selectedFilter =>
+  Boolean(COUNTRIES.find(country => country === selectedFilter));
+const isCategory = selectedFilter =>
+  Boolean(CATEGORIES.find(category => category === selectedFilter));
+
 const applyFilter = filter => {
-  return dispatch => {
+  return (dispatch, getState) => {
     dispatch(setFilter(filter));
     dispatch(removeArticles());
-    dispatch(fetchArticles(filter));
+    const { countryFilter, categoryFilter } = getState();
+    dispatch(fetchArticles(countryFilter, categoryFilter));
   };
 };
 
-const fetchArticles = filter => {
+const fetchArticles = (country, category) => {
   return dispatch => {
     dispatch(requestArticles());
     return fetch(
-      `http://newsapi.org/v2/top-headlines?country=${filter}&apiKey=${process.env.API_KEY}`
+      `http://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${process.env.API_KEY}`
     )
       .then(
         response => response.json(),
@@ -62,7 +71,9 @@ export {
   REQUEST_ARTICLES_SUCCESS,
   REQUEST_ARTICLES_FAILURE,
   DISPLAY_ARTICLES,
-  APPLY_FILTER,
+  REMOVE_ARTICLES,
+  APPLY_COUNTRY_FILTER,
+  APPLY_CATEGORY_FILTER,
   displayArticles,
   fetchArticles,
   applyFilter,

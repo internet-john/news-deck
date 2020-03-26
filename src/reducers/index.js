@@ -4,7 +4,8 @@ import {
   REQUEST_ARTICLES_FAILURE,
   DISPLAY_ARTICLES,
   REMOVE_ARTICLES,
-  APPLY_FILTER,
+  APPLY_COUNTRY_FILTER,
+  APPLY_CATEGORY_FILTER,
 } from '../actions';
 
 const initialState = {
@@ -12,7 +13,8 @@ const initialState = {
   isFetching: false,
   articlesFetched: false,
   articlesDisplayed: false,
-  filter: 'us',
+  countryFilter: 'us',
+  categoryFilter: 'general',
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -47,10 +49,10 @@ const rootReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         articles: [],
       });
-    case APPLY_FILTER:
-      return Object.assign({}, state, {
-        filter: action.filter,
-      });
+    case APPLY_COUNTRY_FILTER:
+      return Object.assign({}, state, { countryFilter: action.filter });
+    case APPLY_CATEGORY_FILTER:
+      return Object.assign({}, state, { categoryFilter: action.filter });
     default:
       return state;
   }

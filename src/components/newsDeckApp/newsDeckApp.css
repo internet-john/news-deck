@@ -3,3 +3,9 @@
   margin: 0 5%;
   font-family: Courier;
 }
+
+@media screen and (min-width: 1080px) {
+  .newsDeckApp {
+    margin: 0 12.5%;
+  }
+}
