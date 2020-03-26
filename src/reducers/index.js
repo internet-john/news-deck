@@ -4,7 +4,8 @@ import {
   REQUEST_ARTICLES_FAILURE,
   DISPLAY_ARTICLES,
   REMOVE_ARTICLES,
-  APPLY_FILTER,
+  APPLY_COUNTRY_FILTER,
+  APPLY_CATEGORY_FILTER,
 } from '../actions';
 
 const initialState = {
@@ -12,7 +13,8 @@ const initialState = {
   isFetching: false,
   articlesFetched: false,
   articlesDisplayed: false,
-  filter: 'us',
+  countryFilter: 'us',
+  categoryFilter: 'general',
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -23,17 +25,17 @@ const rootReducer = (state = initialState, action) => {
       });
     case REQUEST_ARTICLES_SUCCESS:
       return Object.assign({}, state, {
-        isFetching: !state.isFetching,
-        articlesFetched: !state.articlesFetched,
+        isFetching: false,
+        articlesFetched: true,
       });
     case REQUEST_ARTICLES_FAILURE:
       return Object.assign({}, state, {
-        isFetching: !state.isFetching,
-        articlesFetched: !state.articlesFetched,
+        isFetching: false,
+        articlesFetched: false,
       });
     case DISPLAY_ARTICLES:
       return Object.assign({}, state, {
-        articlesDisplayed: !state.articlesDisplayed,
+        articlesDisplayed: true,
         articles: action.articles.map((article, idx) => ({
           id: idx,
           title: article.title.split('-')[0],
@@ -45,11 +47,14 @@ const rootReducer = (state = initialState, action) => {
       });
     case REMOVE_ARTICLES:
       return Object.assign({}, state, {
+        articlesDisplayed: false,
         articles: [],
       });
-    case APPLY_FILTER:
+    case APPLY_COUNTRY_FILTER:
+      return Object.assign({}, state, { countryFilter: action.countryFilter });
+    case APPLY_CATEGORY_FILTER:
       return Object.assign({}, state, {
-        filter: action.filter,
+        categoryFilter: action.categoryFilter,
       });
     default:
       return state;

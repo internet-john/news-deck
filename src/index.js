@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import ErrorBoundary from 'react-error-boundary';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
@@ -22,11 +21,9 @@ const store = createStore(
   composeEnhancers(applyMiddleware(thunk))
 );
 // TODO: save last filter in local storage or other alternative than hardcoding US
-store.dispatch(fetchArticles('us'));
+store.dispatch(fetchArticles('us', 'general'));
 
 ReactDOM.render(
-  <Provider store={store}>
-    <ErrorBoundary>{NewsDeckApp}</ErrorBoundary>
-  </Provider>,
+  <Provider store={store}>{NewsDeckApp}</Provider>,
   document.getElementById('root')
 );

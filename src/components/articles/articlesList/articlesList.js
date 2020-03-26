@@ -9,14 +9,15 @@ const ArticlesList = () => {
 
   const featuredArticles = articles.splice(0, 3);
   return loading ? (
-    <div className="newsDeckApp__articles-list--loading"></div>
+    <section className="newsDeckApp__articles-list--loading"></section>
   ) : (
-    <div className="newsDeckApp__articles-list">
-      <div className="newsDeckApp__articles-list--featured">
+    <section className="newsDeckApp__articles-list">
+      <section className="newsDeckApp__articles-list--featured">
         {featuredArticles &&
           featuredArticles.map(article => (
             <ArticlesListEntry
               key={article.id}
+              id={article.id}
               title={article.title}
               description={article.description}
               author={article.author}
@@ -24,13 +25,13 @@ const ArticlesList = () => {
               url={article.url}
             />
           ))}
-      </div>
-      <div className="newsDeckApp__articles-list-buffer"></div>
-      <div className="newsDeckApp__articles-list--other">
+      </section>
+      <section className="newsDeckApp__articles-list--other">
         {articles &&
           articles.map(article => (
             <ArticlesListEntry
               key={article.id}
+              id={article.id}
               title={article.title}
               description={article.description}
               author={article.author}
@@ -38,8 +39,8 @@ const ArticlesList = () => {
               url={article.url}
             />
           ))}
-      </div>
-    </div>
+      </section>
+    </section>
   );
 };
 
