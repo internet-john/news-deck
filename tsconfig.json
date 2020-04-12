@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react",
+    "baseUrl": "./src",
+    "allowJs": true,
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "noEmit": true,
+    "paths": {
+      "~*": ["./*"]
+    },
+    "typeRoots": ["node_modules/@types"]
+  },
+  "include": ["src/**/*"]
+}

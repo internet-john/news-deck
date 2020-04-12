@@ -1,6 +1,8 @@
 import React from 'react';
 
-const ArticlesListEntry = props => {
+import { ArticlesListEntryProps } from '../../../types';
+
+const ArticlesListEntry: React.FC<ArticlesListEntryProps> = (props) => {
   const classNameRoot =
     props.id <= 2
       ? 'newsDeckApp__articles-list-entry--featured'
@@ -24,4 +26,4 @@ const ArticlesListEntry = props => {
   );
 };
 
-export default ArticlesListEntry;
+export { ArticlesListEntry, ArticlesListEntryProps };
