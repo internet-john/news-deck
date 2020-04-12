@@ -7,6 +7,12 @@
   padding: 0;
 }
 
+@media screen and (max-width: 520px) {
+  .newsDeck__filterBar {
+    width: 90vw;
+  }
+}
+
 .newsDeck__filterBar-item:hover,
 .newsDeck__filterBar-item--selected {
   cursor: pointer;
@@ -17,4 +23,18 @@
 
 .newsDeck__filterBar-item--selected {
   font-size: 1.2em;
+}
+
+@media screen and (max-width: 520px) {
+  .newsDeck__filterBar.categories {
+    flex-wrap: wrap;
+    line-height: 0.1;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .newsDeck__filterBar.categories .newsDeck__filterBar-item,
+  .newsDeck__filterBar.categories .newsDeck__filterBar-item--selected {
+    margin: 0 4%;
+  }
 }

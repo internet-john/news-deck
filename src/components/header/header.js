@@ -3,8 +3,8 @@ import React from 'react';
 const Header = () => {
   return (
     <header className="newsDeckApp__header">
-      <h1>news-deck</h1>
-      <h3>{new Date().toDateString()}</h3>
+      <h1 className="newsDeckApp__header-text">news-deck</h1>
+      <h3 className="newsDeckApp__header-date">{new Date().toDateString()}</h3>
     </header>
   );
 };

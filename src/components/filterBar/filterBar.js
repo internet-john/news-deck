@@ -1,16 +1,23 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { applyFilter } from '../../actions';
+import { applyCountryFilter, applyCategoryFilter } from '../../actions';
 import { COUNTRIES, CATEGORIES } from '../../constants';
 
 const FilterBar = () => {
   const dispatch = useDispatch();
-  const countryFilter = useSelector(state => state.countryFilter);
-  const categoryFilter = useSelector(state => state.categoryFilter);
+  const countryFilter = useSelector((state) => state.countryFilter);
+  const categoryFilter = useSelector((state) => state.categoryFilter);
 
-  const handleClick = e =>
-    dispatch(applyFilter(e.target.getAttribute('label')));
+  const handleClick = (e) => {
+    e.preventDefault();
+
+    const type = e.target.getAttribute('type');
+    const filterVal = e.target.getAttribute('label');
+
+    if (type === 'country') dispatch(applyCountryFilter(filterVal));
+    if (type === 'category') dispatch(applyCategoryFilter(filterVal));
+  };
 
   return (
     <nav>
@@ -27,7 +34,7 @@ const FilterBar = () => {
             <p
               label={country}
               className="newsDeck__filterBar-item--country"
-              value
+              type={'country'}
             >
               {country.toUpperCase()}
             </p>
@@ -47,7 +54,7 @@ const FilterBar = () => {
             <p
               label={category}
               className="newsDeck__filterBar-item--category"
-              value
+              type={'category'}
             >
               {category.toUpperCase()}
             </p>

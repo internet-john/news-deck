@@ -16,12 +16,12 @@ const requestArticlesSuccess = () => ({
   type: REQUEST_ARTICLES_SUCCESS,
 });
 
-const requestArticlesFailure = error => ({
+const requestArticlesFailure = (error) => ({
   type: REQUEST_ARTICLES_FAILURE,
   error,
 });
 
-const displayArticles = articles => ({
+const displayArticles = (articles) => ({
   type: DISPLAY_ARTICLES,
   articles,
 });
@@ -30,36 +30,51 @@ const removeArticles = () => ({
   type: REMOVE_ARTICLES,
 });
 
-const setFilter = filter => ({
-  type: `APPLY_${isCountry(filter) ? 'COUNTRY' : 'CATEGORY'}_FILTER`,
-  filter,
+const setCountryFilter = (countryFilter) => ({
+  type: APPLY_COUNTRY_FILTER,
+  countryFilter,
 });
 
-const isCountry = selectedFilter =>
-  Boolean(COUNTRIES.find(country => country === selectedFilter));
-const isCategory = selectedFilter =>
-  Boolean(CATEGORIES.find(category => category === selectedFilter));
+const setCategoryFilter = (categoryFilter) => ({
+  type: APPLY_CATEGORY_FILTER,
+  categoryFilter,
+});
 
-const applyFilter = filter => {
+const applyCountryFilter = (newCountryFilter) => {
   return (dispatch, getState) => {
-    dispatch(setFilter(filter));
-    dispatch(removeArticles());
     const { countryFilter, categoryFilter } = getState();
-    dispatch(fetchArticles(countryFilter, categoryFilter));
+
+    if (countryFilter !== newCountryFilter) {
+      dispatch(removeArticles());
+      dispatch(setCountryFilter(newCountryFilter));
+      dispatch(fetchArticles(newCountryFilter, categoryFilter));
+    }
+  };
+};
+
+const applyCategoryFilter = (newCategoryFilter) => {
+  return (dispatch, getState) => {
+    const { countryFilter, categoryFilter } = getState();
+
+    if (categoryFilter !== newCategoryFilter) {
+      dispatch(removeArticles());
+      dispatch(setCategoryFilter(newCategoryFilter));
+      dispatch(fetchArticles(countryFilter, newCategoryFilter));
+    }
   };
 };
 
 const fetchArticles = (country, category) => {
-  return dispatch => {
+  return async (dispatch) => {
     dispatch(requestArticles());
-    return fetch(
+    return await fetch(
       `http://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${process.env.API_KEY}`
     )
       .then(
-        response => response.json(),
-        error => dispatch(requestArticlesFailure(error))
+        (response) => response.json(),
+        (error) => dispatch(requestArticlesFailure(error))
       )
-      .then(data => {
+      .then((data) => {
         dispatch(requestArticlesSuccess());
         dispatch(displayArticles(data.articles));
       });
@@ -76,5 +91,6 @@ export {
   APPLY_CATEGORY_FILTER,
   displayArticles,
   fetchArticles,
-  applyFilter,
+  applyCountryFilter,
+  applyCategoryFilter,
 };

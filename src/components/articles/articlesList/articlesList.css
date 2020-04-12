@@ -5,6 +5,7 @@
 
 @media screen and (max-width: 520px) {
   .newsDeckApp__articles-list {
+    margin: 0 5%;
     display: initial;
   }
 }
