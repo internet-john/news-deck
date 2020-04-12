@@ -3,17 +3,22 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { applyCountryFilter, applyCategoryFilter } from '../../actions';
 import { COUNTRIES, CATEGORIES } from '../../constants';
+import { StoreState } from '../../types';
 
 const FilterBar = () => {
   const dispatch = useDispatch();
-  const countryFilter = useSelector((state) => state.countryFilter);
-  const categoryFilter = useSelector((state) => state.categoryFilter);
+  const countryFilter: string = useSelector(
+    (state: StoreState) => state.countryFilter
+  );
+  const categoryFilter: string = useSelector(
+    (state: StoreState) => state.categoryFilter
+  );
 
   const handleClick = (e) => {
     e.preventDefault();
 
-    const type = e.target.getAttribute('type');
-    const filterVal = e.target.getAttribute('label');
+    const type: string = e.target.getAttribute('type');
+    const filterVal: string = e.target.getAttribute('label');
 
     if (type === 'country') dispatch(applyCountryFilter(filterVal));
     if (type === 'category') dispatch(applyCategoryFilter(filterVal));

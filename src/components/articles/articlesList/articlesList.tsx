@@ -1,11 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import ArticlesListEntry from '../article';
+import { ArticlesListEntry } from '../article';
+import { ArticlesListEntryProps } from '../../../types';
 
 const ArticlesList = () => {
-  const articles = useSelector(state => state.articles);
-  const loading = useSelector(state => state.isFetching);
+  const articles: Array<object> = useSelector((state) => state.articles);
+  const loading: boolean = useSelector((state) => state.isFetching);
 
   const featuredArticles = articles.splice(0, 3);
   return loading ? (
@@ -14,7 +15,7 @@ const ArticlesList = () => {
     <section className="newsDeckApp__articles-list">
       <section className="newsDeckApp__articles-list--featured">
         {featuredArticles &&
-          featuredArticles.map(article => (
+          featuredArticles.map((article: ArticlesListEntryProps) => (
             <ArticlesListEntry
               key={article.id}
               id={article.id}
@@ -28,7 +29,7 @@ const ArticlesList = () => {
       </section>
       <section className="newsDeckApp__articles-list--other">
         {articles &&
-          articles.map(article => (
+          articles.map((article: ArticlesListEntryProps) => (
             <ArticlesListEntry
               key={article.id}
               id={article.id}

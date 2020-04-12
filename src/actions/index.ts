@@ -1,46 +1,46 @@
-const REQUEST_ARTICLES = 'REQUEST_ARTICLES';
-const REQUEST_ARTICLES_SUCCESS = 'REQUEST_ARTICLES_SUCCESS';
-const REQUEST_ARTICLES_FAILURE = 'REQUEST_ARTICLES_FAILURE';
-const DISPLAY_ARTICLES = 'DISPLAY_ARTICLES';
-const REMOVE_ARTICLES = 'REMOVE_ARTICLES';
-const APPLY_COUNTRY_FILTER = 'APPLY_COUNTRY_FILTER';
-const APPLY_CATEGORY_FILTER = 'APPLY_CATEGORY_FILTER';
-
-import { COUNTRIES, CATEGORIES } from '../constants';
+enum ACTION_TYPES {
+  REQUEST_ARTICLES = 'REQUEST_ARTICLES',
+  REQUEST_ARTICLES_SUCCESS = 'REQUEST_ARTICLES_SUCCESS',
+  REQUEST_ARTICLES_FAILURE = 'REQUEST_ARTICLES_FAILURE',
+  DISPLAY_ARTICLES = 'DISPLAY_ARTICLES',
+  REMOVE_ARTICLES = 'REMOVE_ARTICLES',
+  APPLY_COUNTRY_FILTER = 'APPLY_COUNTRY_FILTER',
+  APPLY_CATEGORY_FILTER = 'APPLY_CATEGORY_FILTER',
+}
 
 const requestArticles = () => ({
-  type: REQUEST_ARTICLES,
+  type: ACTION_TYPES.REQUEST_ARTICLES,
 });
 
 const requestArticlesSuccess = () => ({
-  type: REQUEST_ARTICLES_SUCCESS,
+  type: ACTION_TYPES.REQUEST_ARTICLES_SUCCESS,
 });
 
-const requestArticlesFailure = (error) => ({
-  type: REQUEST_ARTICLES_FAILURE,
+const requestArticlesFailure = (error: string) => ({
+  type: ACTION_TYPES.REQUEST_ARTICLES_FAILURE,
   error,
 });
 
-const displayArticles = (articles) => ({
-  type: DISPLAY_ARTICLES,
+const displayArticles = (articles: Array<Object>) => ({
+  type: ACTION_TYPES.DISPLAY_ARTICLES,
   articles,
 });
 
 const removeArticles = () => ({
-  type: REMOVE_ARTICLES,
+  type: ACTION_TYPES.REMOVE_ARTICLES,
 });
 
-const setCountryFilter = (countryFilter) => ({
-  type: APPLY_COUNTRY_FILTER,
+const setCountryFilter = (countryFilter: string) => ({
+  type: ACTION_TYPES.APPLY_COUNTRY_FILTER,
   countryFilter,
 });
 
-const setCategoryFilter = (categoryFilter) => ({
-  type: APPLY_CATEGORY_FILTER,
+const setCategoryFilter = (categoryFilter: string) => ({
+  type: ACTION_TYPES.APPLY_CATEGORY_FILTER,
   categoryFilter,
 });
 
-const applyCountryFilter = (newCountryFilter) => {
+const applyCountryFilter = (newCountryFilter: string) => {
   return (dispatch, getState) => {
     const { countryFilter, categoryFilter } = getState();
 
@@ -52,7 +52,7 @@ const applyCountryFilter = (newCountryFilter) => {
   };
 };
 
-const applyCategoryFilter = (newCategoryFilter) => {
+const applyCategoryFilter = (newCategoryFilter: string) => {
   return (dispatch, getState) => {
     const { countryFilter, categoryFilter } = getState();
 
@@ -64,7 +64,7 @@ const applyCategoryFilter = (newCategoryFilter) => {
   };
 };
 
-const fetchArticles = (country, category) => {
+const fetchArticles = (country: string, category: string) => {
   return async (dispatch) => {
     dispatch(requestArticles());
     return await fetch(
@@ -82,13 +82,7 @@ const fetchArticles = (country, category) => {
 };
 
 export {
-  REQUEST_ARTICLES,
-  REQUEST_ARTICLES_SUCCESS,
-  REQUEST_ARTICLES_FAILURE,
-  DISPLAY_ARTICLES,
-  REMOVE_ARTICLES,
-  APPLY_COUNTRY_FILTER,
-  APPLY_CATEGORY_FILTER,
+  ACTION_TYPES,
   displayArticles,
   fetchArticles,
   applyCountryFilter,
