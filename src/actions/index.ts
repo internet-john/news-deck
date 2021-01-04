@@ -68,7 +68,7 @@ const fetchArticles = (country: string, category: string) => {
   return async (dispatch) => {
     dispatch(requestArticles());
     return await fetch(
-      `http://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${process.env.API_KEY}`
+      `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${process.env.API_KEY}`
     )
       .then(
         (response) => response.json(),
